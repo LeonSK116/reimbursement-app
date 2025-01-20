@@ -25,9 +25,12 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit_reimbursement():
     try:
-        data = request.form.to_dict()
+        #Explicitly check Content-Type header
+        if request.headers['Content-Type'] != 'application/json':
+            return jsonify({'error': 'Invalid Content-Type'}), 400
+
+        data = request.get_json() #Use get_json instead of form.to_dict()
         logging.debug(f"Received data: {data}")
-        #Added check for missing name field
         if 'name' not in data:
             return jsonify({'error': 'Name field is missing'}), 400
 
