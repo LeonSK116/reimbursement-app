@@ -28,6 +28,29 @@ Create Database Table: Create the **reimbursements** table in your PostgreSQL da
 9. distance (numeric)
 
 
+-- Connect to your PostgreSQL database
+<code>
+psql -d your_database_name
+</code>
+
+
+-- Create the reimbursements table
+<code>
+CREATE TABLE reimbursements (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    amount NUMERIC(10, 2) NOT NULL,
+    reason TEXT NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    restaurant_name VARCHAR(255),
+    destination VARCHAR(255),
+    distance NUMERIC(10, 2)
+);
+</code>
+
+
 Install Libraries: Make sure you have the psycopg2 and Flask libraries installed (pip install psycopg2 Flask).
 
-You can then run the app using python app.py. The app will be accessible at http://127.0.0.1:5000/.
+You can then run the app using python app.py. The app will be accessible at port 5000.
