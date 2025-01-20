@@ -1,8 +1,12 @@
 import os
 import psycopg2
+import logging
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -22,6 +26,7 @@ def index():
 def submit_reimbursement():
     try:
         data = request.form.to_dict()
+        logging.debug(f"Received data: {data}") #Added logging
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("INSERT INTO reimbursements (name, date, time, amount, reason, category, restaurant_name, destination, distance) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -30,8 +35,12 @@ def submit_reimbursement():
         cur.close()
         conn.close()
         return jsonify({'message': 'Reimbursement submitted successfully!'}), 201
+    except psycopg2.Error as e:
+        logging.exception(f"PostgreSQL error: {e}") #Added logging
+        return jsonify({'error': f"PostgreSQL error: {e}"}), 500
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logging.exception(f"An unexpected error occurred: {e}") #Added logging
+        return jsonify({'error': f"An unexpected error occurred: {e}"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
