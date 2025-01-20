@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimbursement App</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <img src="/static/images/company_logo.png" alt="Company Logo">
+        <h1>Employee Reimbursement</h1>
+    </header>
+    <div class="container">
+        <div class="options">
+            <button class="icon-button" data-category="food">
+                <img src="/static/images/food_icon.png" alt="Food">
+                <label for="food-form">Food</label>
+            </button>
+            <button class="icon-button" data-category="transportation">
+                <img src="/static/images/transport_icon.png" alt="Transportation">
+                <label for="transportation-form">Transportation</label>
+            </button>
+            <button class="icon-button" data-category="mobile">
+                <img src="/static/images/mobile_icon.png" alt="Mobile">
+                <label for="mobile-form">Mobile</label>
+            </button>
+        </div>
+
+        <div id="forms-container">
+            <form id="food-form" action="/submit" method="post" class="reimbursement-form">
+                <input type="hidden" name="category" value="food">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (THB):</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="restaurant_name">Restaurant Name:</label>
+                    <input type="text" id="restaurant_name" name="restaurant_name" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+            <form id="transportation-form" action="/submit" method="post" class="reimbursement-form">
+                <input type="hidden" name="category" value="transportation">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (THB):</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <input type="text" id="destination" name="destination" required>
+                </div>
+                <div class="form-group">
+                    <label for="distance">Distance (km):</label>
+                    <input type="number" id="distance" name="distance" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+            <form id="mobile-form" action="/submit" method="post" class="reimbursement-form">
+                <input type="hidden" name="category" value="mobile">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (THB):</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const options = document.querySelectorAll('.options button');
+        const forms = document.querySelectorAll('#forms-container form');
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const category = option.dataset.category;
+                forms.forEach(form => {
+                    form.classList.remove('active');
+                });
+                forms.forEach(form => {
+                    form.classList.remove('active');
+                });
+                document.getElementById(`${category}-form`).classList.add('active');
+            });
+        });
+
+        // Initially hide all forms except the first one
+        forms.forEach((form, index) => {
+            if (index !== 0) {
+                form.classList.remove('active');
+            }
+        });
+
+        forms.forEach(form => {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const data = {};
+                for (const [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                try {
+                    const response = await fetch('/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        alert('Reimbursement submitted successfully!');
+                        form.reset();
+                    } else {
+                        const errorData = await response.json();
+                        alert('Error submitting reimbursement: ' + errorData.error);
+                    }
+                } catch (error) {
+                    alert('Error submitting reimbursement: ' + error.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
