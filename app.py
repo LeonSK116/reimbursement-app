@@ -26,7 +26,11 @@ def index():
 def submit_reimbursement():
     try:
         data = request.form.to_dict()
-        logging.debug(f"Received data: {data}") #Added logging
+        logging.debug(f"Received data: {data}")
+        #Added check for missing name field
+        if 'name' not in data:
+            return jsonify({'error': 'Name field is missing'}), 400
+
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("INSERT INTO reimbursements (name, date, time, amount, reason, category, restaurant_name, destination, distance) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
@@ -36,10 +40,10 @@ def submit_reimbursement():
         conn.close()
         return jsonify({'message': 'Reimbursement submitted successfully!'}), 201
     except psycopg2.Error as e:
-        logging.exception(f"PostgreSQL error: {e}") #Added logging
+        logging.exception(f"PostgreSQL error: {e}")
         return jsonify({'error': f"PostgreSQL error: {e}"}), 500
     except Exception as e:
-        logging.exception(f"An unexpected error occurred: {e}") #Added logging
+        logging.exception(f"An unexpected error occurred: {e}")
         return jsonify({'error': f"An unexpected error occurred: {e}"}), 500
 
 if __name__ == '__main__':
