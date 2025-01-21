@@ -28,7 +28,7 @@
         </div>
 
         <div id="forms-container">
-            <form id="food-form" action="/submit" method="post" class="reimbursement-form">
+            <form id="food-form" method="post" class="reimbursement-form">
                 <input type="hidden" name="category" value="food">
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -57,7 +57,7 @@
                 <button type="submit">Submit</button>
             </form>
 
-            <form id="transportation-form" action="/submit" method="post" class="reimbursement-form">
+            <form id="transportation-form" method="post" class="reimbursement-form">
                 <input type="hidden" name="category" value="transportation">
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -90,7 +90,7 @@
                 <button type="submit">Submit</button>
             </form>
 
-            <form id="mobile-form" action="/submit" method="post" class="reimbursement-form">
+            <form id="mobile-form" method="post" class="reimbursement-form">
                 <input type="hidden" name="category" value="mobile">
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -149,7 +149,6 @@
                 for (const [key, value] of formData.entries()) {
                     data[key] = value;
                 }
-                //Added check to ensure name field is present
                 if (!data.name) {
                     alert('Please fill in the Name field.');
                     return;

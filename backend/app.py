@@ -1,7 +1,7 @@
 import os
 import psycopg2
 import logging
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -18,9 +18,6 @@ def get_db_connection():
     )
     return conn
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit_reimbursement():
@@ -50,4 +47,4 @@ def submit_reimbursement():
         return jsonify({'error': f"An unexpected error occurred: {e}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5001)
