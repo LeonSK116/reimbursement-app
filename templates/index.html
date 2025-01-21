@@ -149,6 +149,11 @@
                 for (const [key, value] of formData.entries()) {
                     data[key] = value;
                 }
+                //Added check to ensure name field is present
+                if (!data.name) {
+                    alert('Please fill in the Name field.');
+                    return;
+                }
                 try {
                     const response = await fetch('/submit', {
                         method: 'POST',
@@ -163,9 +168,11 @@
                         form.reset();
                     } else {
                         const errorData = await response.json();
+                        console.error('Error submitting reimbursement:', errorData); //Added console error logging
                         alert('Error submitting reimbursement: ' + errorData.error);
                     }
                 } catch (error) {
+                    console.error('Error submitting reimbursement:', error); //Added console error logging
                     alert('Error submitting reimbursement: ' + error.message);
                 }
             });
