@@ -8,11 +8,11 @@ Provide Logo and Icon Images: Replace "company_logo.png", "food_icon.png", "tran
 
 Set Environment Variables: Set the following environment variables with your PostgreSQL database credentials:
 
->- PGHOST: Your database host
->- PGPORT: Your database port
->- PGUSER: Your database username
->- PGPASSWORD: Your database password
->- PGDATABASE: Your database name
+>- export PGHOST=Your database host
+>- export PGPORT=Your database port
+>- export PGUSER=Your database username
+>- export PGPASSWORD=Your database password
+>- export PGDATABASE=Your database name
 
 Create Database Table: Create the **reimbursements** table in your PostgreSQL database with the following columns:
 

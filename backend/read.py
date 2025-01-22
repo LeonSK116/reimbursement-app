@@ -25,9 +25,13 @@ def get_all_data():
         cur = conn.cursor()
         cur.execute("SELECT * FROM reimbursements")
         rows = cur.fetchall()
-        conn.close()
         
-        data = [dict(row) for row in rows]
+        data = []
+        for row in rows:
+            data.append(dict(row))
+        
+        cur.close()
+        conn.close()
         return jsonify(data)
     except psycopg2.Error as e:
         logging.exception(f"PostgreSQL error: {e}")
