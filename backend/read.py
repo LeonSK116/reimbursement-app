@@ -8,6 +8,7 @@ app = Flask(__name__)
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
+# Database connection using psycopg2 and environment variables
 def get_db_connection():
     conn = psycopg2.connect(
         host=os.environ.get('PGHOST'),
@@ -26,11 +27,14 @@ def get_all_data():
         cur.execute("SELECT * FROM reimbursements")
         rows = cur.fetchall()
         
+        # Get column names from cursor description
         columns = [col[0] for col in cur.description]
         
         data = []
         for row in rows:
+            # Convert row to dictionary using column names
             row_dict = dict(zip(columns, row))
+            # Convert time object to string for JSON serialization
             if 'time' in row_dict and row_dict['time']:
                 row_dict['time'] = str(row_dict['time'])
             data.append(row_dict)

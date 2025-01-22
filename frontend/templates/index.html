@@ -55,7 +55,7 @@
                     <input type="text" id="restaurant_name" name="restaurant_name" required>
                 </div>
                 <button type="submit">Submit</button>
-                <button type="button" class="my-claims-button" onclick="window.location.href='/view'">My Claims</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
             </form>
 
             <form id="transportation-form" method="post" class="reimbursement-form">
@@ -89,6 +89,7 @@
                     <input type="number" id="distance" name="distance" required>
                 </div>
                 <button type="submit">Submit</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
             </form>
 
             <form id="mobile-form" method="post" class="reimbursement-form">
@@ -114,14 +115,17 @@
                     <textarea id="reason" name="reason" required></textarea>
                 </div>
                 <button type="submit">Submit</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
             </form>
         </div>
     </div>
 
     <script>
+        // Get all option buttons and forms
         const options = document.querySelectorAll('.options button');
         const forms = document.querySelectorAll('#forms-container form');
 
+        // Add event listeners to option buttons to show corresponding forms
         options.forEach(option => {
             option.addEventListener('click', () => {
                 const category = option.dataset.category;
@@ -142,6 +146,7 @@
             }
         });
 
+        // Add event listeners to forms to handle submission
         forms.forEach(form => {
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
@@ -155,6 +160,7 @@
                     return;
                 }
                 try {
+                    // Send data to the backend submit API
                     const response = await fetch('/api/submit', {
                         method: 'POST',
                         headers: {
@@ -179,6 +185,7 @@
         });
     </script>
     <script>
+        // Get the "My Claims" button and add an onclick event to redirect to /api/data
         const myClaimsButton = document.querySelector('.my-claims-button');
         myClaimsButton.onclick = () => {
             window.location.href = '/api/data';

@@ -5,8 +5,6 @@ body {
 }
 
 .container {
-    width: 80%;
-    max-width: 600px;
     margin: 50px auto;
     background-color: #fff;
     padding: 30px;
@@ -126,6 +124,49 @@ header h1 {
     .options img {
         margin-bottom: 10px;
     }
+}
+
+.my-claims-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#forms-container form {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+#forms-container form input[type="text"],
+#forms-container form input[type="date"],
+#forms-container form input[type="time"],
+#forms-container form input[type="number"],
+#forms-container form textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .my-claims-button {
