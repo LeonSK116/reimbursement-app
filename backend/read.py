@@ -30,7 +30,10 @@ def get_all_data():
         
         data = []
         for row in rows:
-            data.append(dict(zip(columns, row)))
+            row_dict = dict(zip(columns, row))
+            if 'time' in row_dict and row_dict['time']:
+                row_dict['time'] = str(row_dict['time'])
+            data.append(row_dict)
         
         cur.close()
         conn.close()
