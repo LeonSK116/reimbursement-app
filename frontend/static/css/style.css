@@ -1,15 +1,23 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    background-color: #f4f4f4;
+    background-color: #f0f0f0;
+    background-image: url('/static/images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .container {
     margin: 50px auto;
     background-color: #fff;
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.index-container {
+    width: 80%;
+    max-width: 600px;
 }
 
 h1 {
@@ -25,25 +33,25 @@ h1 {
 }
 
 .icon-button {
-    border: none; /* Remove button border */
-    border-radius: 8px; /* Add rounded corners */
-    background-color: #f0f0f0; /* Light gray background */
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f0f0;
     padding: 10px;
     cursor: pointer;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content vertically */
+    align-items: center;
 }
 
 .icon-button img {
     width: 75px;
     height: 75px;
-    margin-bottom: 5px; /* Add space between image and label */
+    margin-bottom: 5px;
 }
 
 .options label {
-    display: block; /* Style labels directly below images */
+    display: block;
     text-align: center;
     font-weight: bold;
     color: #555;
@@ -53,6 +61,9 @@ h1 {
 #forms-container form {
     display: none;
     width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 #forms-container form.active {
@@ -136,49 +147,17 @@ header h1 {
     margin-left: 10px;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.container {
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.index-container {
-    width: 80%;
-    max-width: 600px;
-}
-
-#forms-container form {
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
-    background-color: #f9f9f9;
+    margin-bottom: 20px;
 }
 
-#forms-container form input[type="text"],
-#forms-container form input[type="date"],
-#forms-container form input[type="time"],
-#forms-container form input[type="number"],
-#forms-container form textarea {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.my-claims-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.banner img {
+    max-width: 150px;
+    margin-right: 20px;
 }
