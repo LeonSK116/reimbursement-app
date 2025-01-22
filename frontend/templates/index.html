@@ -55,6 +55,7 @@
                     <input type="text" id="restaurant_name" name="restaurant_name" required>
                 </div>
                 <button type="submit">Submit</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/view'">My Claims</button>
             </form>
 
             <form id="transportation-form" method="post" class="reimbursement-form">
@@ -154,7 +155,7 @@
                     return;
                 }
                 try {
-                    const response = await fetch('/submit', {
+                    const response = await fetch('/api/submit', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -167,15 +168,21 @@
                         form.reset();
                     } else {
                         const errorData = await response.json();
-                        console.error('Error submitting reimbursement:', errorData); //Added console error logging
+                        console.error('Error submitting reimbursement:', errorData);
                         alert('Error submitting reimbursement: ' + errorData.error);
                     }
                 } catch (error) {
-                    console.error('Error submitting reimbursement:', error); //Added console error logging
+                    console.error('Error submitting reimbursement:', error);
                     alert('Error submitting reimbursement: ' + error.message);
                 }
             });
         });
+    </script>
+    <script>
+        const myClaimsButton = document.querySelector('.my-claims-button');
+        myClaimsButton.onclick = () => {
+            window.location.href = '/api/data';
+        }
     </script>
 </body>
 </html>

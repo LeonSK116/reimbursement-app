@@ -19,7 +19,7 @@ def get_db_connection():
     return conn
 
 
-@app.route('/submit', methods=['POST'])
+@app.route('/api/submit', methods=['POST'])
 def submit_reimbursement():
     try:
         #Explicitly check Content-Type header
