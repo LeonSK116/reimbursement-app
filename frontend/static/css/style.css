@@ -124,7 +124,7 @@ header h1 {
 }
 
 .my-claims-button {
-    background-color: #33298c;
+    background-color: #33298c !important;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -144,7 +144,7 @@ header h1 {
 }
 
 .banner img {
-    max-width: 150px;
+    max-width: 250px;
     margin-right: 20px;
 }
 
