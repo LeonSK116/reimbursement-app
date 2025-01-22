@@ -26,9 +26,11 @@ def get_all_data():
         cur.execute("SELECT * FROM reimbursements")
         rows = cur.fetchall()
         
+        columns = [col[0] for col in cur.description]
+        
         data = []
         for row in rows:
-            data.append(dict(row))
+            data.append(dict(zip(columns, row)))
         
         cur.close()
         conn.close()
