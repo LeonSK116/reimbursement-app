@@ -15,7 +15,7 @@ def get_db_connection():
         port=os.environ.get('PGPORT'),
         user=os.environ.get('PGUSER'),
         password=os.environ.get('PGPASSWORD'),
-        database=os.environ.get('PGDATABASE')
+        database=os.environ.get('PGDATABASE_WRITE')
     )
     return conn
 
@@ -52,4 +52,4 @@ def submit_reimbursement():
         return jsonify({'error': f"An unexpected error occurred: {e}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5000)

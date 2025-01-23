@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 import requests
-
+import os
 app = Flask(__name__)
 
 # Backend URLs for write and read operations
-BACKEND_URL_WRITE = "http://localhost:5001"
-BACKEND_URL_READ = "http://localhost:5002"
+# Example: URL_WRITE=http://localhost:5001/api/submit, URL_READ=http://localhost:5002/api/data
+API_DB_WRITE = os.environ.get("URL_WRITE")
+API_DB_READ = os.environ.get("URL_READ")
 
 # Route for the main index page
 @app.route("/")
@@ -18,7 +19,7 @@ def submit():
     data = request.get_json()
     try:
         # Send data to the backend write API
-        response = requests.post(f"{BACKEND_URL_WRITE}/api/submit", json=data)
+        response = requests.post(f"{API_DB_WRITE}", json=data)
         response.raise_for_status()
         return jsonify({"message": "Data submitted successfully"}), 200
     except requests.exceptions.RequestException as e:
@@ -29,7 +30,7 @@ def submit():
 def view():
     try:
         # Fetch data from the backend read API
-        response = requests.get(f'{BACKEND_URL_READ}/api/data')
+        response = requests.get(f'{API_DB_READ}')
         response.raise_for_status()
         data = response.json()
         # Render the data.html template with the retrieved data
