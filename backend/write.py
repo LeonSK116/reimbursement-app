@@ -11,11 +11,11 @@ logging.basicConfig(level=logging.DEBUG)
 # Database connection using psycopg2 and environment variables
 def get_db_connection():
     conn = psycopg2.connect(
-        host=os.environ.get('PGHOST'),
+        host=os.environ.get('PGHOST_WRITE'),
         port=os.environ.get('PGPORT'),
         user=os.environ.get('PGUSER'),
         password=os.environ.get('PGPASSWORD'),
-        database=os.environ.get('PGDATABASE_WRITE')
+        database=os.environ.get('PGDATABASE')
     )
     return conn
 

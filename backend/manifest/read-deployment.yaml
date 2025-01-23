@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: read
+spec:
+  selector:
+    matchLabels:
+      app: read
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: read
+    spec:
+      containers:
+      - name: read
+        image: quay.io/example/read:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: app-config

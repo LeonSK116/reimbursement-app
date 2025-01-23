@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: write
+spec:
+  selector:
+    app: write
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000

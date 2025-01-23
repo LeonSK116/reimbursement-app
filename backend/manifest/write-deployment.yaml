@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: write
+spec:
+  selector:
+    matchLabels:
+      app: write
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: write
+    spec:
+      containers:
+      - name: write
+        image: quay.io/example/write:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: app-config
