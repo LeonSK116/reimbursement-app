@@ -2,7 +2,9 @@ FROM registry.access.redhat.com/ubi8/python-39
 
 WORKDIR /app
 
-COPY frontend /app
+COPY ./web.py /app
+
+COPY ./requirements.txt /app
 
 RUN pip install -r requirements.txt
 
