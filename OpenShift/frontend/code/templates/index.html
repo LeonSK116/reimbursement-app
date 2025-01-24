@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimbursement App</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="banner">
+            <img src="/static/images/company_logo.png" alt="Company Logo">
+            <h1>Employee Reimbursement</h1>
+        </div>
+    </header>
+    <div class="container index-container">
+        <div class="options">
+            <button class="icon-button" data-category="food">
+                <img src="/static/images/food_icon.png" alt="Food">
+                <label for="food-form">Food</label>
+            </button>
+            <button class="icon-button" data-category="transportation">
+                <img src="/static/images/transport_icon.png" alt="Transportation">
+                <label for="transportation-form">Transportation</label>
+            </button>
+            <button class="icon-button" data-category="mobile">
+                <img src="/static/images/mobile_icon.png" alt="Mobile">
+                <label for="mobile-form">Mobile</label>
+            </button>
+        </div>
+
+        <div id="forms-container">
+            <form id="food-form" method="post" class="reimbursement-form">
+                <input type="hidden" name="category" value="food">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (THB):</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="restaurant_name">Restaurant Name:</label>
+                    <input type="text" id="restaurant_name" name="restaurant_name" required>
+                </div>
+                <button type="submit">Submit</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
+            </form>
+
+            <form id="transportation-form" method="post" class="reimbursement-form">
+                <input type="hidden" name="category" value="transportation">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (THB):</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <input type="text" id="destination" name="destination" required>
+                </div>
+                <div class="form-group">
+                    <label for="distance">Distance (km):</label>
+                    <input type="number" id="distance" name="distance" required>
+                </div>
+                <button type="submit">Submit</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
+            </form>
+
+            <form id="mobile-form" method="post" class="reimbursement-form">
+                <input type="hidden" name="category" value="mobile">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount (THB):</label>
+                    <input type="number" id="amount" name="amount" required>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason:</label>
+                    <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <button type="submit">Submit</button>
+                <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get all option buttons and forms
+        const options = document.querySelectorAll('.options button');
+        const forms = document.querySelectorAll('#forms-container form');
+
+        // Add event listeners to option buttons to show corresponding forms
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const category = option.dataset.category;
+                forms.forEach(form => {
+                    form.classList.remove('active');
+                });
+                forms.forEach(form => {
+                    form.classList.remove('active');
+                });
+                document.getElementById(`${category}-form`).classList.add('active');
+            });
+        });
+
+        // Initially hide all forms except the first one
+        forms.forEach((form, index) => {
+            if (index !== 0) {
+                form.classList.remove('active');
+            }
+        });
+
+        // Add event listeners to forms to handle submission
+        forms.forEach(form => {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const data = {};
+                for (const [key, value] of formData.entries()) {
+                    data[key] = value;
+                }
+                if (!data.name) {
+                    alert('Please fill in the Name field.');
+                    return;
+                }
+                try {
+                    // Send data to the backend submit API
+                    const response = await fetch('/api/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        alert('Reimbursement submitted successfully!');
+                        form.reset();
+                    } else {
+                        const errorData = await response.json();
+                        console.error('Error submitting reimbursement:', errorData);
+                        alert('Error submitting reimbursement: ' + errorData.error);
+                    }
+                } catch (error) {
+                    console.error('Error submitting reimbursement:', error);
+                    alert('Error submitting reimbursement: ' + error.message);
+                }
+            });
+        });
+    </script>
+    <script>
+        // Get the "My Claims" button and add an onclick event to redirect to /api/data
+        const myClaimsButton = document.querySelector('.my-claims-button');
+        myClaimsButton.onclick = () => {
+            window.location.href = '/api/data';
+        }
+    </script>
+</body>
+</html>
