@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: frontend-config
 data:
-  URL_WRITE: "http://db-write-service"
-  URL_READ: "http://db-read-service"
+  URL_WRITE: "http://db-write-service/api/submit"
+  URL_READ: "http://db-read-service/api/data"

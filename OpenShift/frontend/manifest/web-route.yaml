@@ -7,5 +7,5 @@ spec:
     kind: Service
     name: web-frontend-service
   port:
-    targetPort: 80  # This should match the port in your Service definition
+    targetPort: 5000
 
