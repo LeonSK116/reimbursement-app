@@ -7,14 +7,14 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: web-app-group
 spec:
+  ingressClassName: alb
   rules:
-  - host: example.com # Replace with your domain
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: web-frontend-service
+            name: web-frontend
             port:
               number: 80

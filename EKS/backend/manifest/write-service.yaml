@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: db-write-service
+  name: db-write
 spec:
   selector:
     app: db-write
