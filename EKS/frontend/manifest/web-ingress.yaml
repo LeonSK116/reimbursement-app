@@ -2,6 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: web-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internal
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: web-app-group
 spec:
   rules:
   - host: example.com # Replace with your domain
@@ -11,6 +15,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: web
+            name: web-frontend-service
             port:
-              number: 5000
+              number: 80
