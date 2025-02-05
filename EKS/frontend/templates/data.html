@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimbursement App</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <div class="banner">
+            <img src="/static/images/company_logo.png" alt="Company Logo">
+            <h1>Employee Reimbursement</h1>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Reimbursement Data</h1>
+        <table id="reimbursementTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Amount</th>
+                    <th>Reason</th>
+                    <th>Category</th>
+                    <th>Restaurant Name</th>
+                    <th>Destination</th>
+                    <th>Distance</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                {% for item in data %}
+                    <tr>
+                        <td>{{ item['id'] }}</td>
+                        <td>{{ item['name'] }}</td>
+                        <td>{{ item['date'] }}</td>
+                        <td>{{ item['time'] }}</td>
+                        <td>{{ item['amount'] }}</td>
+                        <td>{{ item['reason'] }}</td>
+                        <td>{{ item['category'] }}</td>
+                        <td>{{ item['restaurant_name'] }}</td>
+                        <td>{{ item['destination'] }}</td>
+                        <td>{{ item['distance'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

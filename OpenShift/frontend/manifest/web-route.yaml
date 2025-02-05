@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: web-frontend-route
+spec:
+  to:
+    kind: Service
+    name: web-frontend-service
+  port:
+    targetPort: 5000
+

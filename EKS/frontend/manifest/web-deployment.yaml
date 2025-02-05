@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec: 
+  selector:
+    matchLabels:
+      app: web-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-frontend
+    spec:
+      containers:
+      - name: web-frontend-container
+        image: quay.io/redhat_leonsk/reimburse-web-front
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: frontend-config
+
