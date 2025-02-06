@@ -148,6 +148,13 @@ header h1 {
     margin-right: 20px;
 }
 
+#aws-region {
+    font-weight: bold;
+    color: #0047AB; /* Navy Blue */
+    font-size: 1.2em;
+    margin-left: 20px;
+}
+
 @media (max-width: 500px) {
     .container {
         width: 95%;

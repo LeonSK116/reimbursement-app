@@ -11,7 +11,8 @@ API_DB_READ = os.environ.get("URL_READ")
 # Route for the main index page
 @app.route("/")
 def index():
-    return render_template("index.html")
+    aws_region = os.environ.get("AWS_REGION", "us-east-1")
+    return render_template("index.html", aws_region=aws_region) 
 
 # Route to handle form submissions
 @app.route("/api/submit", methods=["POST"])
