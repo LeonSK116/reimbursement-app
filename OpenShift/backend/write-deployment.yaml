@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db-read-deployment
+  name: db-write
 spec: 
   selector:
     matchLabels:
-      app: db-read
+      app: db-write
   replicas: 1
   template:
     metadata:
       labels:
-        app: db-read
+        app: db-write
     spec:
       containers:
-      - name: db-read-container
-        image: quay.io/redhat_leonsk/reimburse-db-read
+      - name: db-write-container
+        image: quay.io/redhat_leonsk/reimburse-db-write
         ports:
         - containerPort: 5000
         envFrom:

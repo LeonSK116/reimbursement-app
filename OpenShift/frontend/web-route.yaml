@@ -5,7 +5,7 @@ metadata:
 spec:
   to:
     kind: Service
-    name: web-frontend-service
+    name: web-frontend
   port:
     targetPort: 5000
 
