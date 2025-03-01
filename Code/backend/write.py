@@ -37,9 +37,9 @@ def submit_reimbursement():
         # Connect to the database
         conn = get_db_connection()
         cur = conn.cursor()
-        # Insert data into the reimbursements table
-        cur.execute("INSERT INTO reimbursements (name, date, time, amount, reason, category, restaurant_name, destination, distance) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (data['name'], data['date'], data['time'], data['amount'], data['reason'], data['category'], data.get('restaurant_name'), data.get('destination'), data.get('distance')))
+        # Insert data into the reimbursements table, including file_location
+        cur.execute("INSERT INTO reimbursements (name, date, time, amount, reason, category, restaurant_name, destination, distance, file_location) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                    (data['name'], data['date'], data['time'], data['amount'], data['reason'], data['category'], data.get('restaurant_name'), data.get('destination'), data.get('distance'), data.get('file_location')))
         conn.commit()
         cur.close()
         conn.close()
