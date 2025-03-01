@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import requests
-from flask import Flask, render_template, request, jsonify
-import requests
 import os
 import uuid
 app = Flask(__name__)
@@ -10,6 +8,7 @@ app = Flask(__name__)
 # Example: URL_WRITE=http://localhost:5001/api/submit, URL_READ=http://localhost:5002/api/data
 API_DB_WRITE = os.environ.get("URL_WRITE")
 API_DB_READ = os.environ.get("URL_READ")
+API_UPLOAD = os.environ.get("URL_UPLOAD")
 
 # Route for the main index page
 @app.route("/")
@@ -55,7 +54,14 @@ def upload():
         # Construct file path based on category. Do not include BUCKET name here.
         file_location = f'/{category}/{filename}'
 
-        return jsonify({'file_location': file_location}), 200
+        # Forward the request to the backend upload API
+        try:
+            upload_response = requests.post(f"{API_UPLOAD}", files={'file': file}, data={'category': category})
+            upload_response.raise_for_status()
+            return jsonify(upload_response.json()), upload_response.status_code
+        except requests.exceptions.RequestException as e:
+            return jsonify({'error': str(e)}), 500
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
