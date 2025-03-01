@@ -28,6 +28,7 @@
                     <th>Restaurant Name</th>
                     <th>Destination</th>
                     <th>Distance</th>
+                    <th>File Location</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -43,6 +44,7 @@
                         <td>{{ item['restaurant_name'] }}</td>
                         <td>{{ item['destination'] }}</td>
                         <td>{{ item['distance'] }}</td>
+                        <td>{{ item['file_location'] }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
