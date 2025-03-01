@@ -59,6 +59,10 @@
                     <label for="restaurant_name">Restaurant Name:</label>
                     <input type="text" id="restaurant_name" name="restaurant_name" required>
                 </div>
+                <div class="form-group">
+                    <label for="receipt">Receipt:</label>
+                    <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" required>
+                </div>
                 <button type="submit">Submit</button>
                 <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
             </form>
@@ -93,6 +97,10 @@
                     <label for="distance">Distance (km):</label>
                     <input type="number" id="distance" name="distance" required>
                 </div>
+                <div class="form-group">
+                    <label for="receipt">Receipt:</label>
+                    <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" required>
+                </div>
                 <button type="submit">Submit</button>
                 <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
             </form>
@@ -118,6 +126,10 @@
                 <div class="form-group">
                     <label for="reason">Reason:</label>
                     <textarea id="reason" name="reason" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="receipt">Receipt:</label>
+                    <input type="file" id="receipt" name="receipt" accept="image/*,.pdf" required>
                 </div>
                 <button type="submit">Submit</button>
                 <button type="button" class="my-claims-button" onclick="window.location.href='/api/data'">My Claims</button>
@@ -160,11 +172,37 @@
                 for (const [key, value] of formData.entries()) {
                     data[key] = value;
                 }
+
                 if (!data.name) {
                     alert('Please fill in the Name field.');
                     return;
                 }
+
+                // File upload logic
                 try {
+                    const file = form.querySelector('input[type="file"]').files[0];
+                    if (!file) {
+                        alert('Please upload a receipt.');
+                        return;
+                    }
+                    const uploadData = new FormData();
+                    uploadData.append('file', file);
+                    uploadData.append('category', data.category);
+
+                    const uploadResponse = await fetch('/api/upload', {
+                        method: 'POST',
+                        body: uploadData,
+                    });
+
+                    if (!uploadResponse.ok) {
+                        const errorData = await uploadResponse.json();
+                        throw new Error('Error uploading file: ' + errorData.error);
+                    }
+
+                    const uploadResult = await uploadResponse.json();
+                    data.file_location = uploadResult.file_location;
+
+
                     // Send data to the backend submit API
                     const response = await fetch('/api/submit', {
                         method: 'POST',
