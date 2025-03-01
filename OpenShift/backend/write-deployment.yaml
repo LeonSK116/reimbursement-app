@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-write
+spec: 
+  selector:
+    matchLabels:
+      app: db-write
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db-write
+    spec:
+      containers:
+      - name: db-write-container
+        image: quay.io/redhat_leonsk/reimburse-db-write
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: backend-config

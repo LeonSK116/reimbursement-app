@@ -1,16 +1,17 @@
 import os
 import psycopg2
 import logging
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
+# Database connection using psycopg2 and environment variables
 def get_db_connection():
     conn = psycopg2.connect(
-        host=os.environ.get('PGHOST'),
+        host=os.environ.get('PGHOST_WRITE'),
         port=os.environ.get('PGPORT'),
         user=os.environ.get('PGUSER'),
         password=os.environ.get('PGPASSWORD'),
@@ -18,24 +19,25 @@ def get_db_connection():
     )
     return conn
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-
-@app.route('/submit', methods=['POST'])
+# Route to handle reimbursement submissions
+@app.route('/api/submit', methods=['POST'])
 def submit_reimbursement():
     try:
-        #Explicitly check Content-Type header
+        # Explicitly check Content-Type header
         if request.headers['Content-Type'] != 'application/json':
             return jsonify({'error': 'Invalid Content-Type'}), 400
 
-        data = request.get_json() #Use get_json instead of form.to_dict()
+        # Get data from the request body
+        data = request.get_json()
         logging.debug(f"Received data: {data}")
+        # Check if 'name' field is present
         if 'name' not in data:
             return jsonify({'error': 'Name field is missing'}), 400
 
+        # Connect to the database
         conn = get_db_connection()
         cur = conn.cursor()
+        # Insert data into the reimbursements table
         cur.execute("INSERT INTO reimbursements (name, date, time, amount, reason, category, restaurant_name, destination, distance) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
                     (data['name'], data['date'], data['time'], data['amount'], data['reason'], data['category'], data.get('restaurant_name'), data.get('destination'), data.get('distance')))
         conn.commit()
@@ -50,4 +52,4 @@ def submit_reimbursement():
         return jsonify({'error': f"An unexpected error occurred: {e}"}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5000)

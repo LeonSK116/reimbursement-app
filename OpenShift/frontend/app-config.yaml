@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  URL_WRITE: "http://db-write/api/submit"
+  URL_READ: "http://db-read/api/data"

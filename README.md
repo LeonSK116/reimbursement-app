@@ -1,6 +1,6 @@
 ![alt text](sample-1.png)
 
-### The frontend is in index.html, the backend is in app.py, and the styling is in style.css. The icons are now rounded rectangular buttons without borders.
+### The frontend is in the `frontend` directory, and the backend is in the `backend` directory. The frontend is a Flask app that serves the web interface, and the backend is a Flask API that handles data submission.
 
 Before running the app, please make sure to:
 
@@ -8,11 +8,11 @@ Provide Logo and Icon Images: Replace "company_logo.png", "food_icon.png", "tran
 
 Set Environment Variables: Set the following environment variables with your PostgreSQL database credentials:
 
->- PGHOST: Your database host
->- PGPORT: Your database port
->- PGUSER: Your database username
->- PGPASSWORD: Your database password
->- PGDATABASE: Your database name
+>- export PGHOST=Your database host
+>- export PGPORT=Your database port
+>- export PGUSER=Your database username
+>- export PGPASSWORD=Your database password
+>- export PGDATABASE=Your database name
 
 Create Database Table: Create the **reimbursements** table in your PostgreSQL database with the following columns:
 
@@ -53,4 +53,6 @@ CREATE TABLE reimbursements (
 
 Install Libraries: Make sure you have the psycopg2 and Flask libraries installed (pip install psycopg2 Flask).
 
-You can then run the app using python app.py. The app will be accessible at port 5000.
+To run the frontend, navigate to the `frontend` directory and run `python app.py`. The frontend will be accessible at port 5000.
+
+To run the backend, navigate to the `backend` directory and run `python app.py`. The backend API will be accessible at port 5001.
