@@ -1,4 +1,4 @@
-![alt text](sample-1.png)
+![alt text](sample.png)
 
 ### The frontend is in the `frontend` directory, and the backend is in the `backend` directory. The frontend is a Flask app that serves the web interface, and the backend is a Flask API that handles data submission.
 
