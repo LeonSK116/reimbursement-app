@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3-upload
+spec: 
+  selector:
+    matchLabels:
+      app: s3-upload
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: s3-upload
+    spec:
+      containers:
+      - name: s3-upload-container
+        image: quay.io/redhat_leonsk/reimburse-s3-upload
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: backend-config
+        env:
+        - name: AWS_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: AWS_REGION
+        - name: BUCKET_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: backend-config
+              key: BUCKET_NAME

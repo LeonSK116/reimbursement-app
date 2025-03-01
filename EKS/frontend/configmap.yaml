@@ -5,3 +5,4 @@ metadata:
 data:
   URL_WRITE: "http://db-write/api/submit"
   URL_READ: "http://db-read/api/data"
+  URL_UPLOAD: "http://file/api/upload"
