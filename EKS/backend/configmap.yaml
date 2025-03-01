@@ -2,10 +2,4 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: backend-config
-data:
-  PGHOST_READ: "localhost"
-  PGHOST_WRITE: "localhost"
-  PGPORT: "5432"
-  PGUSER: "postgres"
-  PGPASSWORD: "postgres"
-  PGDATABASE: "postgres"
+
