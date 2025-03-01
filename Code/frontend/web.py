@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import requests
+from flask import Flask, render_template, request, jsonify
+import requests
 import os
+import uuid
 app = Flask(__name__)
 
 # Backend URLs for write and read operations
@@ -37,6 +40,24 @@ def view():
         return render_template('data.html', data=data)
     except requests.exceptions.RequestException as e:
         return jsonify({"error": str(e)}), 500
+
+# Route to handle file uploads
+@app.route('/api/upload', methods=['POST'])
+def upload():
+    try:
+        file = request.files['file']
+        category = request.form['category']
+        if category not in ['food', 'transportation', 'mobile']:
+            return jsonify({'error': 'Invalid category'}), 400
+
+        # Create a unique filename
+        filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[-1]
+        # Construct file path based on category. Do not include BUCKET name here.
+        file_location = f'/{category}/{filename}'
+
+        return jsonify({'file_location': file_location}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
